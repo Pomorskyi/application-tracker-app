@@ -1,22 +1,22 @@
-'use client';
+"use client";
 
-import { useAuth } from '@/context/AuthContext';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useAuth } from "@/components/context/AuthContext";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
-  const {login} = useAuth();
+  const { login } = useAuth();
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
 
-    const res = await fetch('/api/login', {
-      method: 'POST',
+    const res = await fetch("/api/login", {
+      method: "POST",
       body: JSON.stringify({ email, password }),
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
 
     const data = await res.json();
@@ -25,20 +25,25 @@ export default function LoginPage() {
 
     if (data.success) {
       // console.log('data.userId', data.userId);
-      login(data.userId);
-      router.push('/dashboard');
+      login(data.token);
+      router.push("/dashboard");
     } else {
-      alert(data.error || 'Registration failed');
+      alert(data.error || "Logging in failed");
     }
   }
 
   return (
     <div className="min-h-[calc(100vh-5rem)] flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-md p-8">
-        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Login</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
+          Login
+        </h2>
         <form onSubmit={handleLogin} className="space-y-5">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Email
             </label>
             <input
@@ -53,7 +58,10 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Password
             </label>
             <input
@@ -74,6 +82,19 @@ export default function LoginPage() {
             Login
           </button>
         </form>
+        <button
+          onClick={() => (window.location.href = "/api/oauth/google")}
+          className="mt-10 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 rounded-md w-full cursor-pointer"
+        >
+          Sign in with Google
+        </button>
+
+        <button
+          onClick={() => (window.location.href = "/api/oauth/linkedin")}
+          className="bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 rounded-md w-full mt-2 cursor-pointer"
+        >
+          Sign in with LinkedIn
+        </button>
       </div>
     </div>
   );

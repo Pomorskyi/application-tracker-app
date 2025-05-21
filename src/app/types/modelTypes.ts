@@ -1,28 +1,27 @@
-export interface JobApplication {
+export interface Application {
   id: number;
-  version: number;           // defaults to 1 on creation
   position_name: string;
   company: string;
-  notes?: string | null;     // optional
-  created_at: string;        // ISO date string (DateTime)
-
+  notes?: string;
   status_id: number;
-  status: ApplicationStatus; // relation to application_status
+  status: ApplicationStatus;
+};
 
+export interface JobApplication extends Application {
+  version: number;
+  created_at: string;
   user_id: number;
-  user: User;                // relation to user
+  user: User;
 }
 
 export interface ApplicationStatus {
   id: number;
   name: string;
-  // applications?: JobApplication[]; // optional back relation
 }
 
 export interface User {
   id: number;
   email: string;
   password: string;
-  created_at: string; // ISO date string
-  // applications?: JobApplication[]; // optional back relation
+  created_at: string;
 }

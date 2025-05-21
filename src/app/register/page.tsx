@@ -1,42 +1,46 @@
-'use client';
+"use client";
 
-import { useAuth } from '@/context/AuthContext';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useAuth } from "@/components/context/AuthContext";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function RegisterPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { login } = useAuth();
   const router = useRouter();
 
   async function register(e: React.FormEvent) {
     e.preventDefault();
 
-    const res = await fetch('/api/register', {
-      method: 'POST',
+    const res = await fetch("/api/register", {
+      method: "POST",
       body: JSON.stringify({ email, password }),
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
 
     const data = await res.json();
-    console.log(data);
 
     if (data.success) {
       login(data.user);
-      router.push('/dashboard');
+      router.push("/dashboard");
     } else {
-      alert(data.error || 'Registration failed');
+      alert(data.error || "Registration failed");
     }
   }
 
   return (
     <div className="min-h-[calc(100vh-5rem)] flex items-center justify-center bg-gray-100">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-md p-8">
-        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Register</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
+          Register
+        </h2>
         <form onSubmit={register} className="space-y-5">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Email
             </label>
             <input
@@ -51,7 +55,10 @@ export default function RegisterPage() {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Password
             </label>
             <input
@@ -72,6 +79,12 @@ export default function RegisterPage() {
             Register
           </button>
         </form>
+        <button
+          onClick={() => (window.location.href = "/api/oauth/google")}
+          className="mt-10 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 rounded-md w-full cursor-pointer"
+        >
+          Sign in with Google
+        </button>
       </div>
     </div>
   );

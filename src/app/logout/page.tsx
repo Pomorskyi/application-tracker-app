@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/components/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function LogoutPage () {
-    const router = useRouter();
-    const {logout} = useAuth();
+export default function LogoutPage() {
+  const router = useRouter();
+  const { logout } = useAuth();
 
-    useEffect(() => {
-        logout();
-        router.push("/");
-    }, [logout])
+  useEffect(() => {
+    logout();
+    router.push("/");
+  }, [logout]);
 
-    return <>Log outed ;)</>
+  return <>Log outed ;)</>;
 }
