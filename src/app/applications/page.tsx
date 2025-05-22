@@ -9,10 +9,12 @@ import { useAvailableStatuses } from "@/components/hooks/useAvailableStatuses.ho
 import Link from "next/link";
 import HistoryModal from "@/components/HistoryModal";
 import { useApplicationHistory } from "@/components/hooks/useApplicationHistory.hook";
+import { useStatusesAsAction } from "@/components/hooks/useAllStatuses.hook";
 
 export default function Applications() {
   const { token } = useAuth();
   const { statuses } = useAvailableStatuses();
+  const { statusesWithoutDelete } = useStatusesAsAction();
   const {
     historyModalVersions,
     loadingHistory,
@@ -249,7 +251,7 @@ export default function Applications() {
                         handleStatusChange(app.id, Number(e.target.value))
                       }
                     >
-                      {statuses.map((s) => (
+                      {statusesWithoutDelete.map((s) => (
                         <option key={s.id} value={s.id}>
                           {s.name}
                         </option>
