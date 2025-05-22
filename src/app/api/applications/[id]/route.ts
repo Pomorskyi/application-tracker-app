@@ -4,13 +4,13 @@ import { NextResponse } from "next/server";
 import { getNowUTCTimestamp } from "@/lib/utils/DateUtils";
 import { getUserFromRequest } from "@/lib/utils/AuthUtils";
 
-export async function PATCH(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
+export async function PATCH(req: Request) {
   try {
+    const url = new URL(req.url);
+    const parts = url.pathname.split("/");
+    const id = parts[3];
+
     const { statusId, company, notes, positionName } = await req.json();
-    const id = parseInt(params.id);
 
     const user = getUserFromRequest(req);
 
