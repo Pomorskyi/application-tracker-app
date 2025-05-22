@@ -8,7 +8,7 @@ export async function PATCH(req: Request) {
   try {
     const url = new URL(req.url);
     const parts = url.pathname.split("/");
-    const id = parts[3];
+    const id: number = parseInt(parts[3]);
 
     const { statusId, company, notes, positionName } = await req.json();
 
