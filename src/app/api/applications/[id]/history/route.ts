@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-export async function GET(
-  _request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest) {
   try {
-    const id = params.id;
+    const url = new URL(request.url);
+    const parts = url.pathname.split("/");
+
+    const id = parts[3];
     const applications = await prisma.$queryRaw`
       select * from job_application where id = ${id} order by version asc
     `;
