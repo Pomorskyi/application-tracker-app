@@ -3,10 +3,10 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET(
   _request: NextRequest,
-  context: { params: { id: string } }
+   context: { params: Record<string, string> }
 ) {
   try {
-    const id = parseInt(context.params.id);
+    const id = parseInt(context.params.id, 10);
     const applications = await prisma.$queryRaw`
       select * from job_application where id = ${id} order by version asc
     `;
