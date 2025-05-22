@@ -26,6 +26,7 @@ export async function GET(request: Request) {
     `;
 
     return NextResponse.json({ applications });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     return NextResponse.json(
       { error: "Failed to fetch applications" },

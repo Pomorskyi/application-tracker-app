@@ -1,7 +1,6 @@
 import { ApplicationStatus } from "@/app/types/modelTypes";
 import { useEffect, useState } from "react";
 
-
 export const useAvailableStatuses = () => {
   const [statuses, setStatuses] = useState<ApplicationStatus[]>([]);
   const [loading, setLoading] = useState(true);
@@ -16,8 +15,12 @@ export const useAvailableStatuses = () => {
         }
         const data = await res.json();
         setStatuses(data.statuses || []);
-      } catch (err: any) {
-        setError(err.message || "Failed to fetch statuses");
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("Failed to fetch statuses");
+        }
       } finally {
         setLoading(false);
       }

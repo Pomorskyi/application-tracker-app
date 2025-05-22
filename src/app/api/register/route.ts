@@ -8,11 +8,12 @@ export async function POST(req: Request) {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
-    const user = await prisma.user.create({
+    await prisma.user.create({
       data: { email, password: hashedPassword },
     });
 
     return NextResponse.json({ success: true });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     return NextResponse.json(
       { error: "Email already exists" },

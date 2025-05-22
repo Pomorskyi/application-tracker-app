@@ -1,4 +1,6 @@
-import { ApplicationStatus, JobApplication } from "@/app/types/modelTypes";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { JobApplication } from "@/app/types/modelTypes";
 import { prisma } from "@/lib/prisma";
 import { getDeletedStatus } from "@/lib/utils/APIUtils";
 import { getUserFromRequest } from "@/lib/utils/AuthUtils";
@@ -28,6 +30,7 @@ export async function GET(request: Request) {
     `;
 
     return NextResponse.json({ applications });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     return NextResponse.json(
       { error: "Failed to fetch applications" },

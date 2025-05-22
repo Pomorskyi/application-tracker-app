@@ -1,4 +1,3 @@
-import { NextRequest } from "next/server";
 import { verifyToken } from "../auth";
 
 export function getUserFromRequest(

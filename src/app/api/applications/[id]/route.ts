@@ -1,7 +1,6 @@
 import { JobApplication } from "@/app/types/modelTypes";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
-import * as dfnsTz from "date-fns-tz";
 import { getNowUTCTimestamp } from "@/lib/utils/DateUtils";
 import { getUserFromRequest } from "@/lib/utils/AuthUtils";
 
@@ -50,6 +49,7 @@ export async function PATCH(
 `;
 
     return NextResponse.json({ success: true, application: updated });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
     return NextResponse.json(
       { error: "Failed to update status" },

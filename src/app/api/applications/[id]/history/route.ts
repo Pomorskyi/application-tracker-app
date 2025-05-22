@@ -1,9 +1,9 @@
-import { JobApplication } from "@/app/types/modelTypes";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { JobApplication } from "@/app/types/modelTypes";
 
 export async function GET(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
@@ -11,12 +11,12 @@ export async function GET(
 
     const applications: JobApplication[] = await prisma.$queryRaw`
       select * from job_application where id = ${id} order by version asc
-      `;
+    `;
 
     return NextResponse.json({ versions: applications });
   } catch (e) {
     return NextResponse.json(
-      { error: "Failed to update status", e },
+      { error: "Failed to fetch application history", e },
       { status: 500 }
     );
   }

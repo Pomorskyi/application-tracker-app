@@ -88,13 +88,6 @@ export default function LoginPage() {
         >
           Sign in with Google
         </button>
-
-        <button
-          onClick={() => (window.location.href = "/api/oauth/linkedin")}
-          className="bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 rounded-md w-full mt-2 cursor-pointer"
-        >
-          Sign in with LinkedIn
-        </button>
       </div>
     </div>
   );

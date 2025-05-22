@@ -35,6 +35,7 @@ export async function GET(request: Request) {
       { id: number; company: string; position: string }[]
     > = {};
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     for (const app of applications as any[]) {
       const { id, company, position_name, created_at, status_name } = app;
 

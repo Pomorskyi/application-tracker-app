@@ -3,7 +3,7 @@
 import { useAuth } from "@/components/context/AuthContext";
 import { useEffect, useState } from "react";
 import { FaClock, FaFile } from "react-icons/fa";
-import { Application, JobApplication } from "../types/modelTypes";
+import { Application } from "../types/modelTypes";
 import FiveLoadingPlaceholders from "@/components/FiveLoadingPlaceholders";
 import { useAvailableStatuses } from "@/components/hooks/useAvailableStatuses.hook";
 import Link from "next/link";
@@ -116,7 +116,7 @@ export default function Applications() {
         Authorization: `Bearer ${token}`,
       },
     });
-    const data = await res.json();
+    await res.json();
 
     setApplications((prev) => [
       ...prev.filter((app) => app.id !== applicationId),
@@ -137,7 +137,7 @@ export default function Applications() {
       },
     });
 
-    const data = await res.json();
+    await res.json();
 
     setApplications((apps) =>
       apps.map((app) =>
